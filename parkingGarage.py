@@ -54,11 +54,15 @@ class ParkingGarage():
         self.parkingSpaces = parkingSpaces
         self.currentTicket = currentTicket
 
-    def takeTicket(self):
-        pass
+    def takeTicket(self,tickets,parkingSpaces):
+        tickets-=1 
+        parkingSpaces-=1
 
-    def payForParking(self):
-        pass
+    def payForParking(amount, currentTicket):
+        amount = int(input("Parking amount is $20 enter amount"))
+        if amount: 
+            print("Your ticket has been paid. You have 15mins to leave.")
+        currentTicket["Paid"]=True
 
     def leaveGarage(self):
         pass
