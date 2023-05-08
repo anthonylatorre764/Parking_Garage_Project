@@ -49,38 +49,46 @@ class ParkingGarage():
     """Simulate a Parking Garage."""
 
 
-    def __init__(self, tickets = [], parkingSpaces = [], currentTicket = {}):
+    def __init__(self, tickets = 5, parkingSpaces = 5, currentTicket = { "spot number" : "parking space"}):
         self.tickets = tickets
         self.parkingSpaces = parkingSpaces
         self.currentTicket = currentTicket
 
-    def takeTicket(self,tickets,parkingSpaces):
-        tickets-=1 
-        parkingSpaces-=1
+    def takeTicket(self):
+        self.tickets-=1
+        self.parkingSpaces-=1 
+        self.currentTicket[1]=0
+     
+    
 
-    def payForParking(amount, currentTicket):
+    
+    def payForParking(self):
         amount = int(input("Parking amount is $20 enter amount: "))
-        while amount != 20:
+        while amount <= 20:
             amount = int(input("Sorry, but the amount is $20. Please pay the ticket: "))
-        if amount == 20: 
+        if amount >= 20: 
             print("Your ticket has been paid. You have 15mins to leave.")
-            currentTicket["Paid"]=True
+            self.currentTicket["Paid"]=True
 
-    def leaveGarage(self, currentTicket, amount, tickets, parkingSpaces):
-        if currentTicket["Paid"] == True:
+    def leaveGarage(self):
+        if self.currentTicket["Paid"] == True:
             print("Thank you, have a nice day!")
-            tickets+=1
-            parkingSpaces+=1
-            while currentTicket["Paid"] == False:
-                print(amount)
+            self.tickets+=1
+            self.parkingSpaces+=1
+        amount = int(input("Parking amount is $20 enter amount: "))
+        while amount <= 20:
+            amount = int(input("Sorry, but the amount is $20. Please pay the ticket: ")) 
+            if amount >= 20: 
+                print("Your ticket has been paid. You have 15mins to leave.")
+                self.currentTicket["Paid"]=True
 
-                while:
-                amount = int(input("Sorry, but the amount is $20. Please pay the ticket: "))
 
-                if amount == 20: 
-                    print("Your ticket has been paid.")
-                    currentTicket["Paid"]=True
-                    break
+
+parking_garage = ParkingGarage(tickets=[range(1,51)], parkingSpaces=range(1,51))
+
+parking_garage.takeTicket(50,50)
+
+print(parking_garage.tickets)
 
                 
         
