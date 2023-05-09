@@ -42,3 +42,21 @@ When the project is completed, commit the final changes, sync all pull requests,
 
 ###### List group responsiblities below:
 ###### Provide name and approxamite line numbers where each person wrote their code
+
+<pre>
+
+Responsibilities...        (line numbers)
+
+
+Anthony LaTorre:
+   __init__ method            (52-55)
+   payForParking method       (62-68)
+   created class instance     (84)
+
+Rhianna Dicent:
+   takeTicket method          (57-60)
+   leaveGarage method         (70-80)
+   modified class instance    (84)
+   method/attribute calls     (86,88)
+
+</pre>
