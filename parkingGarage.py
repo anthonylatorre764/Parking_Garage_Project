@@ -56,11 +56,8 @@ class ParkingGarage():
 
     def takeTicket(self):
         self.tickets-=1
-        self.parkingSpaces-=1 
+        self.parkingSpaces-=1
         self.currentTicket[1]=0
-     
-    
-
     
     def payForParking(self):
         amount = int(input("Parking amount is $20 enter amount: "))
