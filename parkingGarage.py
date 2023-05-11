@@ -1,93 +1,146 @@
 # Parking Garage Project
 
-# Your assignment for today is to create a parking garage class to get more familiar with Object Oriented Programming(OOP). This project would usually be a pair programming project. However, for the size our class we will have groups of 3. This means, that one person(The driver) will code the project while the other people(The navigators)will brainstorm and guide to a working solution.
-# Each of you should share/switch these roles every 30mins-1hr -- Or you may elect to switch "drivers" after creating specific methods of the class.
-
-# The Initial Driver needs to Make sure to:
-# download the files below, create a local folder for the project,  create a github repository, commit the inital files,  share the link
-
-# Both navigators should then:
-# fork the code, clone it.
-
-# The current driver MUST share their screen so the navigators can help brainstorm to a working solution.
-
-# When code has been updated, you will need to pull down the changes.
-
-# Here's an article on doing so -- https://stackoverflow.com/questions/3903817/pull-new-updates-from-original-github-repository-into-forked-github-repository
-
-# Your parking gargage class should have the following methods:
-# - takeTicket
-#    - This should decrease the amount of tickets available by 1
-#    - This should decrease the amount of parkingSpaces available by 1
-# - payForParking
-#    - Display an input that waits for an amount from the user and store it in a variable
-#    - If the payment variable is not empty then (meaning the ticket has been paid) ->  display a message to the user that their ticket has been paid and they have 15mins to leave
-#    - This should update the "currentTicket" dictionary key "paid" to True
-# -leaveGarage
-#    - If the ticket has been paid, display a message of "Thank You, have a nice day"
-#    - If the ticket has not been paid, display an input prompt for payment
-#       - Once paid, display message "Thank you, have a nice day!"
-#    - Update parkingSpaces list to increase by 1 (meaning add to the parkingSpaces list)
-#    - Update tickets list to increase by 1 (meaning add to the tickets list)
-
-# You will need a few attributes as well:
-# - tickets -> list
-# - parkingSpaces -> list
-# - currentTicket -> dictionary
-
-# note: Use VSCode for this project starting with the following files below. Also, each person in the group should list the portion of the project they were responsible for inside of the python file and inside the README file.
-
-# When the project is completed, commit the final changes, sync all pull requests, and each member should submit their respective GitHub links(though the code in each should be the same)
-
-
 ###### List group responsiblities below:
 ###### Provide name and approxamite line numbers where each person wrote their code
 
 
 
+# Responsibilities...        (line numbers)
+
+
+# Anthony LaTorre:
+#    __init__ method            (52-55)
+#    payForParking method       (62-68)
+#    created class instance     (84)
+
+# Rhianna Dicent:
+#    takeTicket method          (57-60)
+#    leaveGarage method         (70-80)
+#    modified class instance    (84)
+#    method/attribute calls     (86,88)
+
+
+
+
+##### Visual of Dictionaries layout ####
+
+
+# (parking spot occupancy)
+# ('True' means spot is occupied, False for otherwise)
+
+    # spot_nums {
+    #     0: True,
+    #     1: True,
+    #     2: False,
+    #     3: True,
+    #     4: False
+    # }
+
+
+# (see who's paid for parking)
+# ('True' means person in that spot number has paid, False for otherwise)
+
+    # currentTicket {
+    #     0: True,
+    #     1: True,
+    #     2: False,
+    #     3: True,
+    #     4: False,
+    # }
+
+
+
 class ParkingGarage():
-    """Simulate a Parking Garage."""
+    """Simulate a parking garage."""
 
-
-    def __init__(self, tickets = 5, parkingSpaces = 5, currentTicket = { "spot number" : "parking space"}):
+    def __init__(self, tickets = 5, parkingSpaces = 5, spot_key = 0):
         self.tickets = tickets
         self.parkingSpaces = parkingSpaces
-        self.currentTicket = currentTicket
+        self.spot_nums = {
+            0: False,
+            1: False,
+            2: False,
+            3: False,
+            4: False,
+        }
+        self.currentTicket = {}
+
 
     def takeTicket(self):
-        self.tickets-=1
-        self.parkingSpaces-=1
-        self.currentTicket[1]=0
-    
+        if self.tickets and self.parkingSpaces:
+            print("\nTickets available")
+            self.tickets -= 1
+            self.parkingSpaces -= 1
+        else:
+            print("\nSorry, you'll have to come back later when a spot opens " +
+                  "up.\n")
+            return 1
+        print("\nHere is your Ticket...\n")
+        for key, value in self.spot_nums.items():
+            if value == False:
+                print("You are in spot number " + str(key) + ".")
+                self.spot_nums[key] = True
+                self.currentTicket[key] = False
+                print("\nCurrent Occupancy ('True' means spot is taken):")
+                print(f"{self.spot_nums}")
+                break
+
+
     def payForParking(self):
-        amount = int(input("Parking amount is $20 enter amount: "))
-        while amount <= 20:
-            amount = int(input("Sorry, but the amount is $20. Please pay the ticket: "))
+        spot = int(input("\nWhat spot are you in? "))
+        while spot > 4:
+            print("Sorry, but our parking spaces are numbered 0 - 4.")
+            spot = int(input("Please enter a valid spot number. (0, 1, etc.) "))
+        print()
+        amount = int(input("Parking costs $20, enter amount: "))
+        while amount < 20:
+            amount = int(input("\nSorry, but the amount is $20. Please enter " +
+                               "'20' to continue: "))
         if amount >= 20: 
-            print("Your ticket has been paid. You have 15mins to leave.")
-            self.currentTicket["Paid"]=True
+            print("\nYour ticket has been paid. You have 15 minutes to leave.")
+            self.currentTicket[spot] = True
+
 
     def leaveGarage(self):
-        if self.currentTicket["Paid"] == True:
-            print("Thank you, have a nice day!")
+        spot = int(input("\nWhat spot are you in? "))
+        while spot > 4:
+            print("\nSorry, but our parking spaces are numbered 0 - 4")
+            spot = int(input("Please enter a valid spot number (0, 1, etc.): "))
+        if self.currentTicket[spot] == True:
+            print("\nThank you, have a nice day!")
             self.tickets+=1
             self.parkingSpaces+=1
-        amount = int(input("Parking amount is $20 enter amount: "))
-        while amount <= 20:
-            amount = int(input("Sorry, but the amount is $20. Please pay the ticket: ")) 
-            if amount >= 20: 
-                print("Your ticket has been paid. You have 15mins to leave.")
-                self.currentTicket["Paid"]=True
+            self.spot_nums[spot] = False
+            del self.currentTicket[spot]
+        else:
+            print("\nYou need to pay for parking first.")
 
 
-
-parking_garage = ParkingGarage(tickets=[range(1,51)], parkingSpaces=range(1,51))
-
-parking_garage.takeTicket(50,50)
-
-print(parking_garage.tickets)
-
-                
+    def runner(self):
+        print("\n--------- Welcome to the Parking Garage Simulator! ---------")
+        while True:
+            response = input("\n\n\nDo you want to... Take a ticket, Pay for " +
+                             "parking, Leave garage or Quit? ").lower()
+            
+            if response == 'take ticket' or response == 'take a ticket':
+                exit = self.takeTicket()
+                if exit == 1:
+                    break
+            elif response == 'pay' or response == 'pay for parking':
+                self.payForParking()
+            elif response == 'leave' or response == 'leave garage':
+                self.leaveGarage()
+            elif response == 'quit':
+                break
+            else:
+                print("\nInvalid Response... Please enter 'take ticket', " +
+                      "'pay', or 'leave'.")
+            
+            
         
 
-            
+
+my_parking_garage = ParkingGarage()
+
+
+my_parking_garage.runner()
